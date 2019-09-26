@@ -1,0 +1,119 @@
+<!-- ==================================================================================== 
+README
+получилось криво и косо, к тому же, не все задания как нужно
+в частности, у меня никак не вышло сделать с Ajax'ом
+в остальном же, хоть и очень неказисто, но работает
+Считаю неплохим рельтатом для человека, который увидел пхп впервые)
+
+И, в любом случае, спасибо за опыт, это было полезно)
+ ==================================================================================== -->
+<?php
+$res="";
+if(isset($_POST['result']))
+{
+ $year=$_POST['textfield1'];
+ if (is_numeric($year)) 
+ {
+     if ($year%4!=0 || (($year%100==0) and ($year%400!=0))) $res="НЕТ";
+     else $res="ДА";
+ }
+ else {$res="ОШИБКА ВВЕДЁННЫХ ДАННЫХ";}
+}
+?>
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Задания</title>
+</head>
+
+<body>
+<blockquote>
+  <h3><em>Високосный год?</em></h3>
+</blockquote>
+<form action="index.php" method="post">
+<label for="textfield">Введите год:</label>
+<input type="text" name="textfield1">
+	 <br></br>
+<input  type="submit" name="result" value="Расчитать"> 
+	<br></br>
+<label for="textfield1">Результат:  </label>
+<input type="text" name="textfield2" value=<?echo $res?> >
+</form>
+<!-- ==================================================================================== -->
+ <br></br>
+  <br></br>
+   <br></br>
+<!-- ==================================================================================== -->
+
+<?php
+if(isset($_POST['resultprfx'])){
+    $pref=$_POST['prfx'];
+        $array=explode("\n", $_POST['strings']);
+        for ($i=0;$i<(count($array)-1);$i++) {
+            $find=stripos($array[$i], $pref);
+            if ($find===0)
+                $array2[]=$array[$i];
+        }
+        for ($i=0; $i<(count($array2));$i++) {
+            echo $array2[$i];
+            echo '<pre>';
+        }
+}
+?>
+
+<blockquote>
+  <h3><em>Сколько префиксов</em></h3>
+</blockquote>
+<form action="index.php" method="post">
+<label for="textfield">Префикс:</label>
+<input type="text" name="prfx">
+ <br></br>
+<label for="textarea" >Введите строки</label>
+<textarea name="strings"></textarea>
+<input  type="submit" name="resultprfx" value="Найти"> 
+<input type="text" name="textfieldprfx">
+</form>
+
+
+<!-- ==================================================================================== -->
+ <br></br>
+  <br></br>
+   <br></br>
+<!-- ==================================================================================== -->
+
+<?php
+$hipster="";
+if(isset($_POST['hiphip']))
+{
+ $hipst=$_POST['hipst'];
+ $sm=$_POST['sm'];
+ if ($sm>$hipst) {
+     $z=fmod($sm, $hipst);} 
+ else {
+     $z=fmod($hipst,$sm);}
+ if ($z==0) {
+     $hipster="Всем досталось поровну"; 
+     } else { $hipster= 'Было выброшено ' .$z. ' смузи'; 
+     }
+     
+ }
+ echo $hipster;
+?>
+
+
+<blockquote>
+  <h3><em>Хипстеры</em></h3>
+</blockquote>
+<form action="index.php" method="post">
+<label for="textfield">Введите хипстеров:</label>
+<input type="text" name="hipst">
+ <br></br>
+<label for="textfield">Раздайте смузи:</label>
+<input type="text" name="sm">
+ <br></br>
+<input  type="submit" name="hiphip" value="Найти"> 
+</form>
+</body>
+</html>
